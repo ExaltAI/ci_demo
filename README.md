@@ -138,7 +138,7 @@ The GitHub Actions workflow (`.github/workflows/ci.yml`) includes:
 
 
 For full details/explanation of the pipeline config see the 
-[docs/CI_PIPELINE_EXPLAINED](docs/CI_PIPELINE_EXPLAINED) file.
+[docs/CI_PIPELINE_EXPLAINED.md](docs/CI_PIPELINE_EXPLAINED.md) file.
 ## Run Script
 
 Run the complete app with linting and tests with:
