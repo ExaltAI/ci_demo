@@ -47,7 +47,6 @@ async def delete_message(message_id: str):
     return {"message": f"Message {message_id} deleted successfully"}
 
 
-
 @app.get("/messages")
 async def list_messages():
     """List all messages that exist otherwise return an empty list"""
