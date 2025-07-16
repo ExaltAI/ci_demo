@@ -130,7 +130,7 @@ jobs:
         uv run python -c "from app import app; print('✅ Application imports successfully')"
     
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: python-package
         path: dist/
