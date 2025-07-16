@@ -2,7 +2,7 @@
 
 A simple FastAPI application demonstrating modern CI/CD practices with Python, featuring automated testing, code quality checks, and GitHub Actions.
 
-## 🚀 Features
+## Features
 
 - **FastAPI Application**: Simple REST API with message CRUD operations
 - **Modern Python Tooling**: Uses `uv` for dependency management, `ruff` for linting/formatting, `pytest` for testing
@@ -16,7 +16,7 @@ A simple FastAPI application demonstrating modern CI/CD practices with Python, f
 
 ## 📋 Prerequisites
 
-- Python 3.11 or higher
+- Python 3.12 or higher
 - [uv](https://github.com/astral-sh/uv) package manager
 
 ### Install uv
@@ -25,7 +25,7 @@ A simple FastAPI application demonstrating modern CI/CD practices with Python, f
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-## 🛠️ Local Development
+## Local Development
 
 ### Quick Start
 
@@ -124,7 +124,7 @@ The GitHub Actions workflow (`.github/workflows/ci.yml`) includes:
 - **Ruff formatting**: Ensures consistent code formatting
 
 ### 2. Testing
-- **Multi-version testing**: Tests on Python 3.11 and 3.12
+- **Multi-version testing**: Tests on Python 3.12 and 3.13
 - **Comprehensive test suite**: Unit tests for all endpoints
 - **Coverage reporting**: Tracks test coverage with Codecov integration
 
@@ -136,12 +136,15 @@ The GitHub Actions workflow (`.github/workflows/ci.yml`) includes:
 - **Package building**: Creates distributable Python package
 - **Application validation**: Ensures the app can be imported and started
 
-## 🎯 Demo Script
 
-Run the complete demo with:
+For full details/explanation of the pipeline config see the 
+[docs/CI_PIPELINE_EXPLAINED](docs/CI_PIPELINE_EXPLAINED) file.
+## Run Script
+
+Run the complete app with linting and tests with:
 
 ```bash
-./demo.sh
+./end_to_end.sh
 ```
 
 This script will:
@@ -185,24 +188,8 @@ Once the server is running, visit:
 - **Swagger UI**: http://localhost:8000/docs
 - **ReDoc**: http://localhost:8000/redoc
 
-## 🚀 Live Demo Tips
-
-1. **Start with the demo script**: `./demo.sh`
-2. **Show the CI pipeline**: Push changes to trigger GitHub Actions
-3. **Demonstrate API endpoints**: Use the interactive docs at `/docs`
-4. **Show test coverage**: Run `uv run pytest tests/ --cov=app --cov-report=html`
-5. **Demonstrate code quality**: Show ruff linting and formatting
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and linting
-5. Submit a pull request
-
-The CI pipeline will automatically run on your pull request!
-
 ## 📝 License
 
-This project is for demonstration purposes.
+This repository is for educational purposes only. Commercial use is prohibited.
+
+See [LICENSE](LICENSE) file for details.

@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# FastAPI CI/CD Demo Script
-# This script demonstrates the CI/CD pipeline for the Simple Message API
-
+# End-to-end script to installs deps, lints the code, runts tests and boots up
+# API server
 set -e
 
 echo "🚀 FastAPI CI/CD Demo Starting..."
