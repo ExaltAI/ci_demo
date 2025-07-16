@@ -132,5 +132,5 @@ jobs:
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: python-package
+        name: ci_demo
         path: dist/
