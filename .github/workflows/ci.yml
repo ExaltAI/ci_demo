@@ -7,16 +7,44 @@ on:
     branches: [ main ]
 
 jobs:
+  setup:
+    name: Setup Environment
+    runs-on: ubuntu-latest
+    outputs:
+      cache-key: ${{ steps.cache-key.outputs.key }}
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Generate cache key
+        id: cache-key
+        run: echo "key=uv-$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+      
+      - name: Cache uv
+        id: cache-uv
+        uses: actions/cache@v3
+        with:
+          path: ~/.cargo/bin/uv
+          key: ${{ steps.cache-key.outputs.key }}
+      
+      - name: Install uv
+        if: steps.cache-uv.outputs.cache-hit != 'true'
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
   code-quality:
     name: Code Quality
     runs-on: ubuntu-latest
+    needs: setup
     steps:
     - uses: actions/checkout@v4
     
-    - name: Install uv
-      uses: astral-sh/setup-uv@v3
+    - name: Restore uv from cache
+      uses: actions/cache@v3
       with:
-        version: "latest"
+        path: ~/.cargo/bin/uv
+        key: ${{ needs.setup.outputs.cache-key }}
+        fail-on-cache-miss: true
     
     - name: Set up Python
       run: uv python install 3.13
@@ -36,7 +64,7 @@ jobs:
   test:
     name: Run Tests
     runs-on: ubuntu-latest
-    needs: code-quality
+    needs: [setup, code-quality]
     strategy:
       matrix:
         python-version: ["3.12", "3.13"]
@@ -44,10 +72,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Install uv
-      uses: astral-sh/setup-uv@v3
+    - name: Restore uv from cache
+      uses: actions/cache@v3
       with:
-        version: "latest"
+        path: ~/.cargo/bin/uv
+        key: ${{ needs.setup.outputs.cache-key }}
+        fail-on-cache-miss: true
     
     - name: Set up Python ${{ matrix.python-version }}
       run: uv python install ${{ matrix.python-version }}
@@ -74,14 +104,16 @@ jobs:
   security:
     name: Security Scan
     runs-on: ubuntu-latest
-    needs: test
+    needs: [setup, test]
     steps:
     - uses: actions/checkout@v4
     
-    - name: Install uv
-      uses: astral-sh/setup-uv@v3
+    - name: Restore uv from cache
+      uses: actions/cache@v3
       with:
-        version: "latest"
+        path: ~/.cargo/bin/uv
+        key: ${{ needs.setup.outputs.cache-key }}
+        fail-on-cache-miss: true
     
     - name: Set up Python
       run: uv python install 3.13
@@ -105,14 +137,16 @@ jobs:
   build:
     name: Build Application
     runs-on: ubuntu-latest
-    needs: [code-quality, test]
+    needs: [setup, code-quality, test]
     steps:
     - uses: actions/checkout@v4
     
-    - name: Install uv
-      uses: astral-sh/setup-uv@v3
+    - name: Restore uv from cache
+      uses: actions/cache@v3
       with:
-        version: "latest"
+        path: ~/.cargo/bin/uv
+        key: ${{ needs.setup.outputs.cache-key }}
+        fail-on-cache-miss: true
     
     - name: Set up Python
       run: uv python install 3.13
